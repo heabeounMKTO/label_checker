@@ -75,7 +75,8 @@ def a_ok():
     new_pathjson = os.path.join(checked_dir, jsonstem)
     shutil.move(old_pathimg, new_pathimg)
     shutil.move(old_pathjson, new_pathjson)
-
+    next_img()
+    prev_img() 
 def hkey_ok(e):
     a_ok() 
 

@@ -1,6 +1,7 @@
 # label_checker
 small tool made with tkinter for checking auto generated LabelMe labels
-
+<br>
+warning: the thing works , but the code is jank as it is slapped together in a short time. (this is also my first time using tkinter)
 ## running 
  
 
