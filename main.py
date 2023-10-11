@@ -61,12 +61,11 @@ def a_ok():
     all_img_paths = FilesLoader(Path(filename)).file_array
     checked_dir = os.path.join(filename, "checked")
     if not os.path.exists(checked_dir):
-        os.makedirs(checked_dir)
-        
+        os.makedirs(checked_dir) 
     imgstem = os.path.basename(all_img_paths[current_imageidx])
     jsonstem = os.path.basename(os.path.splitext(all_img_paths[current_imageidx])[0] + ".json")
     
-    print(imgstem, jsonstem)
+    print("check: ", imgstem, jsonstem)
     
     old_pathimg = os.path.join(filename, imgstem)
     old_pathjson = os.path.join(filename, jsonstem)
@@ -76,7 +75,30 @@ def a_ok():
     shutil.move(old_pathimg, new_pathimg)
     shutil.move(old_pathjson, new_pathjson)
     next_img()
-    prev_img() 
+    # prev_img()
+    
+def trash():
+    global all_img_paths
+    global filename     
+    trash_dir = os.path.join(filename, "trash") 
+    if not os.path.exists(trash_dir):
+        os.makedirs(trash_dir) 
+    imgstem = os.path.basename(all_img_paths[current_imageidx])
+    jsonstem = os.path.basename(os.path.splitext(all_img_paths[current_imageidx])[0] + ".json")
+    
+    print("dumpster: ", imgstem, jsonstem)
+    
+    old_pathimg = os.path.join(filename, imgstem)
+    old_pathjson = os.path.join(filename, jsonstem)
+    
+    new_pathimg = os.path.join(trash_dir, imgstem)
+    new_pathjson = os.path.join(trash_dir, jsonstem)
+    shutil.move(old_pathimg, new_pathimg)
+    shutil.move(old_pathjson, new_pathjson)
+    next_img()
+    # prev_img()
+    
+     
 def hkey_ok(e):
     a_ok() 
 
@@ -97,14 +119,15 @@ labels = StringVar()
 filename = filedialog.askdirectory()
 all_img_paths = FilesLoader(Path(filename)).file_array
 yea = StringVar()
-
+buttonframe =  Frame(window).pack(side=BOTTOM)
 window.bind('<space>', hkey_ok)
 window.bind('d', hkey_next)
 window.bind('a', hkey_prev)
 
 Button(window, text="NEXT IMAGE",relief = 'groove', command=next_img,height= 20, width=30).pack(side=RIGHT, padx=10, pady=10)
 Button(window, text="PREV IMAGE", relief = 'groove',command=prev_img,height= 20, width=30).pack(side=LEFT, padx=10, pady=10)
-Button(window, text = "A-OK" , bg='#00ff00', font=('Arial', 8), command=a_ok,height= 8, width=30).pack(side=BOTTOM, padx=10, pady=10) 
+Button(window, text = "TO DA BIN" , bg='#ff0000', font=('Arial', 8), command=trash,height= 2, width=50).pack(side=BOTTOM, padx=10, pady=10) 
+Button(window, text = "A-OK" , bg='#00ff00', font=('Arial', 8), command=a_ok,height= 2, width=50).pack(side=BOTTOM, padx=10, pady=10) 
 # photo = ImageTk.PhotoImage(Image.open("load.png"))
 photo = load_img(all_img_paths[current_imageidx])
 label_preview = Label(window, font=("Arial", 20) ,textvariable=labels).pack(side=BOTTOM)
